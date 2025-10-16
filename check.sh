@@ -1,2 +1,2 @@
-cd /home/ubuntu/Grade-Watcher
+cd /path/to/PKUHSC-Grade-Watcher
 python main.py
