@@ -1,4 +1,4 @@
-# 北京大学成绩自动查询自部署版
+# 北京大学医学部成绩自动查询自部署版
 
 鉴于刷半天树洞全是 xxx 出分了没，便有了这个小工具。
 
@@ -14,13 +14,13 @@
 
 ```bash
 # 克隆项目
-git clone https://github.com/Arthals/Grade-Watcher.git
+git clone https://github.com/Arthals/PKUHSC-Grade-Watcher.git
 
 # 切换到 self-deployment 分支
 git checkout self-deployment
 
 # 进入项目目录
-cd Grade-Watcher
+cd PKUHSC-Grade-Watcher
 
 # 复制 config_sample.yaml 为 config.yaml
 cp config_sample.yaml config.yaml
@@ -35,7 +35,7 @@ crontab -e
 添加一行：
 
 ```bash
-*/10 * * * * /path/to/Grade-Watcher/check.sh >> /path/to/Grade-Watcher/check.log 2>&1
+*/10 * * * * /path/to/PKUHSC-Grade-Watcher/check.sh >> /path/to/PKUHSC-Grade-Watcher/check.log 2>&1
 ```
 
 如果你的日志提示没有找到 python，那么你可能需要参考 [这篇文章](https://stackoverflow.com/questions/36365801/run-a-crontab-job-using-an-anaconda-env) 来设置你的环境变量。
