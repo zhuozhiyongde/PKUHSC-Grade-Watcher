@@ -20,6 +20,7 @@ def start():
     config = yaml.load(open("config.yaml", "r"), Loader=yaml.FullLoader)
     username = config["username"]
     password = config["password"]
+    gid = config["gid"]
     bark = config["bark"]
 
     if not username or not password:
@@ -33,6 +34,7 @@ def start():
     data = {
         "username": username,
         "password": password,
+        "gid": gid,
     }
 
     s = Session(config=data, notifier=notifier)

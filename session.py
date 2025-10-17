@@ -23,13 +23,7 @@ from Crypto.Util.Padding import pad
 
 AES_CHARS = "ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678"
 GRADE_INDEX_URL = "https://apps.bjmu.edu.cn/jwapp/sys/cjcx/*default/index.do"
-GRADE_QUERY_URL = (
-    "https://apps.bjmu.edu.cn/jwapp/sys/cjcx/modules/cjcx/xscjcx.do"
-)
-GRADE_SERVICE_GID = (
-    "V3hMVFErb1V5QzlMTmVSUFZNd3E0Z3kxQzRxeE1VQWlPemFDQnJJWVV2cUNBQzVLVWVDM0R0Q2VR"
-    "bzNPM1Q4MDlKQlcxK2NDWXFKZXVndkFvaXlFdnc9PQ"
-)
+GRADE_QUERY_URL = "https://apps.bjmu.edu.cn/jwapp/sys/cjcx/modules/cjcx/xscjcx.do"
 
 
 class Session(requests.Session):
@@ -74,9 +68,7 @@ class Session(requests.Session):
         if not all([lt, execution, salt]):
             raise ValueError("登录页缺少必要字段，无法继续登录")
 
-        encrypted_pwd = self._encrypt_password(
-            self._config["password"], salt["value"]
-        )
+        encrypted_pwd = self._encrypt_password(self._config["password"], salt["value"])
 
         form_data = {
             "username": self._config["username"],
@@ -118,7 +110,7 @@ class Session(requests.Session):
         timestamp = int(time.time() * 1000)
         service = (
             f"{GRADE_INDEX_URL}"
-            f"?t_s={timestamp}&amp_sec_version_=1&gid_={GRADE_SERVICE_GID}"
+            f"?t_s={timestamp}&amp_sec_version_=1&gid_={self._config['gid']}"
             "&EMAP_LANG=zh&THEME=bjmu#/cjcx"
         )
         encoded_service = quote(service, safe="")
@@ -255,7 +247,7 @@ class Session(requests.Session):
             )
             if not cid:
                 continue
-            
+
             if row.get("DJCJLXDM_DISPLAY") == "两级制":
                 grade = row.get("DJCJMC")
             else:
